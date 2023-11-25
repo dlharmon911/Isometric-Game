@@ -20,8 +20,11 @@
 #define LEFT            2
 #define RIGHT           3
 
-#define X_OFFSET        -544//(SCREEN_W-((GRID_X-2)*64))/2
-#define Y_OFFSET        -176//(SCREEN_H-((GRID_Y-2)*32))/2
+#define BUFFER_WIDTH    640
+#define BUFFER_HEIGHT   480
+
+#define X_OFFSET        -544//(BUFFER_WIDTH-((GRID_X-2)*64))/2
+#define Y_OFFSET        -176//(BUFFER_HEIGHT-((GRID_Y-2)*32))/2
 
 #define NUMBER_LAYER    5
 #define WINDOW_TOP      380
@@ -62,14 +65,14 @@ class OVERLAY
     int shift_y;
 
     void setup();
-    void edraw(BITMAP *bmp,int v);
+    void edraw(BITMAP *bmp, int v);
     void draw(BITMAP *bmp);
     void drawMouse(BITMAP *bmp);
     void edit();
     void save();
     void load();
     void move(int dir);
-    int getPos(int x,int y);
+    int getPos(int x, int y);
     bool insideTriangle(int x, int y);
 };
 
@@ -81,18 +84,18 @@ public:
     int y_pos;
     int frame;
     int dir;
-    int gx,gy;
-    int cx,cy;
+    int gx, gy;
+    int cx, cy;
     bool walk;
     BITMAP *sprite[8];
 
     void setup();
     void uninit();
-    void draw(BITMAP *bmp,int x, int y);
-    void draw2(BITMAP *bmp,int x, int y);
+    void draw(BITMAP *bmp, int x, int y);
+    void draw2(BITMAP *bmp, int x, int y);
     int do_move(int dir);
     void move();
-    void set_movement(int x,int y);
+    void set_movement(int x, int y);
     bool check_hit();
     void load();
     void save();
@@ -112,7 +115,7 @@ public:
     BITMAP *sprite;
 
     void create(int x, int y, int w, int h, const char *tx);
-    void create(int x, int y, int w, int h, BITMAP *bmp,const char *a);
+    void create(int x, int y, int w, int h, BITMAP *bmp, const char *a);
     void draw(BITMAP *bmp);
     bool isMouse(int x, int y);
 };
@@ -162,16 +165,16 @@ class AstarPathFinderClass
 
 public:
  
-    NodeClass   *OpenNode,
-                *ClosedNode,
+    NodeClass   *OpenNode, 
+                *ClosedNode, 
                 *PathNode;
     StackClass  *Stack;
     
     bool isPath;
     
-    int Height,
-        Width,
-        TotalSize,
+    int Height, 
+        Width, 
+        TotalSize, 
         *TileMap;
 
 public:
@@ -193,7 +196,7 @@ private:
     void FindPath(int sx, int sy, int dx, int dy);
     NodeClass *ReturnBestNode(void);
     void GenerateSuccessors(NodeClass *BestNode, int dx, int dy);
-    void GenerateSucc(NodeClass *BestNode,int x, int y, int dx, int dy);
+    void GenerateSucc(NodeClass *BestNode, int x, int y, int dx, int dy);
     NodeClass *CheckOPEN(int tilenum);
     NodeClass *CheckCLOSED(int tilenum);
     void Insert(NodeClass *Successor);
@@ -218,27 +221,27 @@ extern COLOR_MAP trans_table;
 
 /******************** misc.cpp **************************/
 
-void dtextout(BITMAP *bmp, const FONT *f, const char *tx, int x, int y, int fg,int bg);
-void dtextout_centre(BITMAP *bmp, const FONT *f, const char *tx, int x, int y, int fg,int bg);
-void dtextprintf(BITMAP *bmp, const FONT *f, int x,int y,int fg,int bg, const char *format, ...);
-void dtextprintf_centre(BITMAP *bmp, const FONT *f, int x,int y,int fg,int bg, const char *format, ...);
+void dtextout(BITMAP *bmp, const FONT *f, const char *tx, int x, int y, int fg, int bg);
+void dtextout_centre(BITMAP *bmp, const FONT *f, const char *tx, int x, int y, int fg, int bg);
+void dtextprintf(BITMAP *bmp, const FONT *f, int x, int y, int fg, int bg, const char *format, ...);
+void dtextprintf_centre(BITMAP *bmp, const FONT *f, int x, int y, int fg, int bg, const char *format, ...);
 
-void picFill(BITMAP *source,BITMAP *dest,int sx, int sy, int dx, int dy, int w, int h);
-void drawWindow(BITMAP *bmp, int x, int y, int x2, int y2,int flag);
-void drawBorder(BITMAP *bmp, int x, int y, int x2, int y2,int flag);
+void picFill(BITMAP *source, BITMAP *dest, int sx, int sy, int dx, int dy, int w, int h);
+void drawWindow(BITMAP *bmp, int x, int y, int x2, int y2, int flag);
+void drawBorder(BITMAP *bmp, int x, int y, int x2, int y2, int flag);
 
 bool pass();
 
-BITMAP *getBehind(BITMAP *bmp,int x1,int y1,int x2,int y2);
-void putBehind(BITMAP *src,BITMAP *dest,int x,int y);
+BITMAP *getBehind(BITMAP *bmp, int x1, int y1, int x2, int y2);
+void putBehind(BITMAP *src, BITMAP *dest, int x, int y);
 
-void doMessage(BITMAP *bmp,int x, int y,int amount,const char *tx,...);
-bool doQuestion(BITMAP *bmp,int x, int y,int amount,const char *tx1,const char *tx2,...);
+void doMessage(BITMAP *bmp, int x, int y, int amount, const char *tx, ...);
+bool doQuestion(BITMAP *bmp, int x, int y, int amount, const char *tx1, const char *tx2, ...);
 
 void doGameHelp();
 
 /******************** main.cpp **************************/
-int distance(int x,int y);
+int distance(int x, int y);
 void doStatus(const char *tx);
 int initAll();
 void deleteAll();

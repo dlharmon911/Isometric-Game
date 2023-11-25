@@ -4,7 +4,7 @@ MOUSE_CLASS mouse;
 
 void MOUSE_CLASS::init()
 {
-    under=create_bitmap(32,32);
+    under=create_bitmap(32, 32);
     mouse_down=false;
     type=0;
 }
@@ -42,5 +42,5 @@ void MOUSE_CLASS::draw(BITMAP *bmp)
         p=0;
     }
 
-    draw_sprite(buffer,(BITMAP*)data[MOUSE01+p].dat,mouse_x,mouse_y);
+    draw_sprite(buffer, (BITMAP*)data[MOUSE01+p].dat, mouse_x, mouse_y);
 }

@@ -17,8 +17,8 @@ void PLAYER_CLASS::setup()
 
     for (int i=0; i<8; i++)
     {
-        sprite[i]=create_bitmap(32,32);
-        blit((BITMAP*)data[CHARLIE].dat,sprite[i],32*(i%2),32*(i/2),0,0,32,32);   
+        sprite[i]=create_bitmap(32, 32);
+        blit((BITMAP*)data[CHARLIE].dat, sprite[i], 32*(i%2), 32*(i/2), 0, 0, 32, 32);   
     }
 }
 
@@ -30,20 +30,20 @@ void PLAYER_CLASS::uninit()
     }
 }
 
-void PLAYER_CLASS::draw(BITMAP *bmp,int x, int y)
+void PLAYER_CLASS::draw(BITMAP *bmp, int x, int y)
 {    
     gx=x+x_pos;
     gy=y+y_pos;
-    draw_sprite(bmp,(BITMAP*)data[HALO].dat,x+x_pos-12,y+y_pos-9);
-    putpixel(bmp,x+x_pos,y+y_pos,255);
-    draw_sprite(bmp,sprite[frame],x+x_pos-16,y+y_pos-28);
+    draw_sprite(bmp, (BITMAP*)data[HALO].dat, x+x_pos-12, y+y_pos-9);
+    putpixel(bmp, x+x_pos, y+y_pos, 255);
+    draw_sprite(bmp, sprite[frame], x+x_pos-16, y+y_pos-28);
 }
 
-void PLAYER_CLASS::draw2(BITMAP *bmp,int x, int y)
+void PLAYER_CLASS::draw2(BITMAP *bmp, int x, int y)
 {    
     color_map = &trans_table;
-    draw_trans_sprite(bmp,(BITMAP*)data[HALO].dat,x+x_pos-12,y+y_pos-9);
-    draw_trans_sprite(bmp,sprite[frame],x+x_pos-16,y+y_pos-28);
+    draw_trans_sprite(bmp, (BITMAP*)data[HALO].dat, x+x_pos-12, y+y_pos-9);
+    draw_trans_sprite(bmp, sprite[frame], x+x_pos-16, y+y_pos-28);
 }
 
 bool PLAYER_CLASS::check_hit()
@@ -54,7 +54,7 @@ bool PLAYER_CLASS::check_hit()
 
 int PLAYER_CLASS::do_move(int dir)
 {
-    int p,ox,oy,op,of;
+    int p, ox, oy, op, of;
 
     ox=x_pos;
     oy=y_pos;
@@ -100,7 +100,7 @@ int PLAYER_CLASS::do_move(int dir)
         pos=pos+WORLD_X+1;
     }
 
-    p=getpixel((BITMAP*)data[COLOR_HELPER].dat,x_pos,y_pos);    
+    p=getpixel((BITMAP*)data[COLOR_HELPER].dat, x_pos, y_pos);    
     if (p!=1)
     {
         if (p==2)
@@ -162,8 +162,8 @@ void PLAYER_CLASS::move()
 
 void PLAYER_CLASS::set_movement(int x, int y)
 {
-    int xx,yy,p,l,ps;
-    ps=map.getPos(x,y);
+    int xx, yy, p, l, ps;
+    ps=map.getPos(x, y);
     l=map.scroll+(ps/GRID_X)*WORLD_X+(ps%GRID_X); 
     p=l-player.pos;
     xx=p%200;                

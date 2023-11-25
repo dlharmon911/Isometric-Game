@@ -6,7 +6,7 @@ AstarPathFinderClass *astar;
  
 AstarPathFinderClass::AstarPathFinderClass(MAP_CLASS &map)
 {
-    Stack = (StackClass*)calloc(1,sizeof(StackClass));
+    Stack = (StackClass*)calloc(1, sizeof(StackClass));
     isPath = false;
     OpenNode = NULL;
     ClosedNode = NULL;
@@ -35,7 +35,7 @@ AstarPathFinderClass::~AstarPathFinderClass()
 
 void AstarPathFinderClass::InitAstarTileMap(MAP_CLASS &map)
 {
-    int i,index=0;
+    int i, index=0;
 
     Width = WORLD_X;
     Height = WORLD_Y;
@@ -56,7 +56,7 @@ void AstarPathFinderClass::InitAstarTileMap(MAP_CLASS &map)
 
 void AstarPathFinderClass::RedoAstarTileMap(MAP_CLASS &map)
 {
-    int i,index=0;
+    int i, index=0;
 
     for (i=0; i<TotalSize; i++)
     {
@@ -66,12 +66,12 @@ void AstarPathFinderClass::RedoAstarTileMap(MAP_CLASS &map)
 
 
 
-/* returns true if there is a path from sx,sy to dx,dy */ 
+/* returns true if there is a path from sx, sy to dx, dy */ 
  
 
-bool AstarPathFinderClass::NewPath(int sx,int sy, int dx,int dy)
+bool AstarPathFinderClass::NewPath(int sx, int sy, int dx, int dy)
 {
-    if ( FreeTile(dx,dy)&&FreeTile(sx,sy) && (TileNum(sx,sy)!=TileNum(dx,dy)) )
+    if ( FreeTile(dx, dy)&&FreeTile(sx, sy) && (TileNum(sx, sy)!=TileNum(dx, dy)) )
     {
         isPath=true;
 
@@ -81,7 +81,7 @@ bool AstarPathFinderClass::NewPath(int sx,int sy, int dx,int dy)
 
         FreeNodes();
 
-        FindPath(sx,sy,dx,dy);
+        FindPath(sx, sy, dx, dy);
         return (isPath);
     }
 
@@ -115,12 +115,12 @@ bool AstarPathFinderClass::ReachedGoal(void)
 
 
 
-/* returns the tile number from the supplied x,y coordinates */ 
+/* returns the tile number from the supplied x, y coordinates */ 
  
 
 int AstarPathFinderClass::TileNum( int x , int y )
 {
-    return map.getPos(x,y);
+    return map.getPos(x, y);
 }
 
 
@@ -202,7 +202,7 @@ int AstarPathFinderClass::NodeGetY(void)
 
 
 
-/* find a path from sx,sy to dx,dy */ 
+/* find a path from sx, sy to dx, dy */ 
  
 
 void AstarPathFinderClass::FindPath(int sx, int sy, int dx, int dy)
@@ -213,12 +213,12 @@ void AstarPathFinderClass::FindPath(int sx, int sy, int dx, int dy)
     isPath=true;
     TileNumDest = TileNum(sx, sy);
 
-    OpenNode=( NodeClass* )calloc(1,sizeof( NodeClass ));
-    ClosedNode=( NodeClass* )calloc(1,sizeof( NodeClass ));
+    OpenNode=( NodeClass* )calloc(1, sizeof( NodeClass ));
+    ClosedNode=( NodeClass* )calloc(1, sizeof( NodeClass ));
 
-    Node=( NodeClass* )calloc(1,sizeof( NodeClass ));
+    Node=( NodeClass* )calloc(1, sizeof( NodeClass ));
     Node->g = 0;
-    Node->h = distance((dx-sx),(dy-sy));
+    Node->h = distance((dx-sx), (dy-sy));
     Node->f = Node->g+Node->h;
     Node->NodeNum = TileNum(dx, dy);
     Node->x = dx;
@@ -244,7 +244,7 @@ void AstarPathFinderClass::FindPath(int sx, int sy, int dx, int dy)
         if (BestNode->NodeNum == TileNumDest)
             break;
 
-        GenerateSuccessors(BestNode,sx,sy);
+        GenerateSuccessors(BestNode, sx, sy);
     }
 
     PathNode = BestNode;
@@ -301,16 +301,16 @@ void AstarPathFinderClass::GenerateSuccessors(NodeClass *BestNode, int dx, int d
     int x, y;
 
     if ( FreeTile(x=BestNode->x-64, y=BestNode->y-32) )
-        GenerateSucc(BestNode,x,y,dx,dy);
+        GenerateSucc(BestNode, x, y, dx, dy);
 
     if ( FreeTile(x=BestNode->x+64, y=BestNode->y-32) )
-        GenerateSucc(BestNode,x,y,dx,dy);
+        GenerateSucc(BestNode, x, y, dx, dy);
 
     if ( FreeTile(x=BestNode->x-64, y=BestNode->y+32) )
-        GenerateSucc(BestNode,x,y,dx,dy);
+        GenerateSucc(BestNode, x, y, dx, dy);
 
     if ( FreeTile(x=BestNode->x+64, y=BestNode->y+32) )
-        GenerateSucc(BestNode,x,y,dx,dy);
+        GenerateSucc(BestNode, x, y, dx, dy);
 }
 
 
@@ -318,7 +318,7 @@ void AstarPathFinderClass::GenerateSuccessors(NodeClass *BestNode, int dx, int d
 /* */ 
  
 
-void AstarPathFinderClass::GenerateSucc(NodeClass *BestNode,int x, int y, int dx, int dy)
+void AstarPathFinderClass::GenerateSucc(NodeClass *BestNode, int x, int y, int dx, int dy)
 {
     int g, TileNumS, c = 0;
     NodeClass *Old, *Successor;
@@ -336,7 +336,7 @@ void AstarPathFinderClass::GenerateSucc(NodeClass *BestNode,int x, int y, int dx
  
 
 
-    TileNumS = TileNum(x,y);
+    TileNumS = TileNum(x, y);
 
 
 
@@ -406,10 +406,10 @@ void AstarPathFinderClass::GenerateSucc(NodeClass *BestNode,int x, int y, int dx
     }
     else
     {
-        Successor = ( NodeClass* )calloc(1,sizeof( NodeClass ));
+        Successor = ( NodeClass* )calloc(1, sizeof( NodeClass ));
         Successor->Parent = BestNode;
         Successor->g = g;
-        Successor->h = distance((x-dx),(y-dy));
+        Successor->h = distance((x-dx), (y-dy));
         Successor->f = g+Successor->h;
         Successor->x = x;
         Successor->y = y;
@@ -585,7 +585,7 @@ void AstarPathFinderClass::Push(NodeClass *NodeClass)
 {
     StackClass *tmp;
 
-    tmp =( StackClass* )calloc(1,sizeof( StackClass ));
+    tmp =( StackClass* )calloc(1, sizeof( StackClass ));
     tmp->NodePtr = NodeClass;
     tmp->NextStackPtr = Stack->NextStackPtr;
     Stack->NextStackPtr = tmp;
